@@ -1,1 +1,133 @@
-My Page
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Mini éditeur pour &lt;textarea&gt;</title>
+<script src="https://raw.githubusercontent.com/Thunderseb/tuto-zform/master/script.js"></script>
+<style>
+/* Bootstrap 3 */
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css");
+
+/* Styles propres */
+body > footer {
+    border-top: 1px solid #E5E5E5;
+    color: #777;
+    margin-top: 100px;
+    padding-bottom: 40px;
+    padding-top: 40px;
+    text-align: center;
+}
+
+body > footer > ul {
+	color: #999;
+	margin-top: 20px;
+	padding-left: 0;	
+}
+
+body > footer > ul > li {
+	display: inline;
+}
+
+/* Styles de la démo */
+
+.text-red		{ color: red; }
+.text-green		{ color: green; }
+.text-yellow	{ color: yellow; }
+.text-blue		{ color: blue; }
+.text-black		{ color: black; }
+.text-u			{ text-decoration: underline; }
+#textarea		{ width: 100%; }
+
+#preview:after, #view:after {
+    background-color: #F5F5F5;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 0;
+    color: #9DA0A4;
+    content: "Prévisualisation automatique";
+    font-size: 12px;
+    font-weight: bold;
+    left: -1px;
+    padding: 3px 7px;
+    position: absolute;
+    top: -1px;
+}
+
+#view:after {
+	content: "Aperçu final";
+}
+
+#preview, #view {
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    margin: 15px 0;
+    padding: 39px 19px 14px;
+    position: relative;
+	display: none;
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-static-top navbar-inverse" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+	 		<span class="navbar-brand">Mini-éditeur pour <tt>&lt;textarea&gt;</tt></span>
+		</div>
+	</div>
+</nav>
+
+<form role="form" action="" method="post" class="container form-inline">
+	<p>
+		<input class="btn btn-default" type="button" onclick="Texta.insert(this, 'textarea')" value="G" data-before="[b]" data-after="[/b]" />
+		<input class="btn btn-default" type="button" onclick="Texta.insert(this, 'textarea')" value="I" data-before="[i]" data-after="[/i]" />
+		<input class="btn btn-default" type="button" onclick="Texta.insert(this, 'textarea')" value="Lien" data-type="link" />
+		<input class="btn btn-default" type="button" onclick="Texta.insert(this, 'textarea')" value="Image" data-type="image" />
+		<input class="btn btn-default" type="button" onclick="Texta.insert(this, 'textarea')" value="Citation" data-type="quote" />
+		<select class="form-control"  onchange="Texta.insertFromSelect(this, 'textarea');">
+			<option selected="selected">Couleur</option>
+			<option data-before="[color=red]" data-after="[/color]">Rouge</option>
+			<option data-before="[color=green]" data-after="[/color]">Vert</option>
+			<option data-before="[color=yellow]" data-after="[/color]">Jaune</option>
+			<option data-before="[color=blue]" data-after="[/color]">Bleu</option>
+			<option data-before="[color=black]" data-after="[/color]">Noir</option>
+		</select>
+		<img class="btn btn-default" onclick="Texta.insert(this, 'textarea')" data-before=":)" src="smile.gif" alt="smiley" />
+		<img class="btn btn-default" onclick="Texta.insert(this, 'textarea')" data-before=":euh:" src="unsure2.gif" alt="smiley" />
+	</p>
+	
+	<p class="checkbox">
+		<input name="previsualisation" type="checkbox" id="previsualisation" value="previsualisation" />
+		<label for="previsualisation">Prévisualisation automatique</label>
+	</p>
+
+	<p>
+		<textarea id="textarea" cols="150" rows="10" class="form-control" 
+			onkeyup="Texta.preview(this, 'preview', 'previsualisation')" 
+			onselect="Texta.preview(this, 'preview', 'previsualisation')"></textarea>
+	</p>
+    
+	<output id="preview"></output>
+
+	<p>
+        <input class="btn btn-primary" type="button" value="Visualiser" onclick="Texta.view(this, 'textarea','view');" />
+    </p>
+
+    <output id="view"></output>
+</form>
+
+<footer class="container" role="contentinfo">
+	<p>Démonstration d'un éditeur de texte à destination d'un <code>&lt;textarea&gt;</code></p>
+	<p>&copy; Sébastien de la Marck, aka Thunderseb</p>
+	<ul class="list-unstyled">
+		<li><a href="#">Cours Zeste de Savoir</a></li>
+		<li> &mdash; </li>
+		<li><a href="http://openclassrooms.com/courses/insertion-de-balises-dans-une-zone-de-texte">Cours OpenClassrooms</a></li>
+		<li> &mdash; </li>
+		<li>Design avec <a href="http://getbootstrap.com/">Bootstrap 3</a></li>
+	</ul>
+</footer>
+
+</body>
+</html>
