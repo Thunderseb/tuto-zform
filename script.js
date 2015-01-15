@@ -7,6 +7,11 @@ if (typeof Texta === "undefined") {
 		smiliesFile: ['magicien.png', 'angry.gif', 'diable.png', 'ange.png', 'ninja.png', 'pinch.png', 'pirate.png', 'zorro.png', 'rouge.png', 'soleil.png', 'pleure.png', 'waw.png', 'smile.png', 'heureux.png', 'clin.png', 'langue.png', 'rire.gif', 'unsure.gif', 'triste.png', 'huh.png', 'mechant.png', 'blink.gif', 'hihi.png', 'siffle.png'],
 		smiliesPath: "http://fr.openclassrooms.com/Templates/images/smilies/",
 		
+		viewPath: "parse-bbcode.php",
+		
+		setVisualisationPath: function(path) {
+			this.viewPath = path;
+		},
 		
 		// Méthodes
 		insert: function(elem, idTextarea) {
@@ -151,14 +156,14 @@ if (typeof Texta === "undefined") {
 						view.innerHTML = that.viewXhr.responseText;
 					} else if (that.viewXhr.readyState === 3){
 						view.style.display = "block";
-						view.innerHTML = "<div class=\"text-center\">Chargement en cours...</div>";
+						view.innerHTML = '<div class="text-center">Chargement en cours...</div>';
 					} else if (that.viewXhr.status === 0) {
-						view.innerHTML = "<div class=\"text-center\">Visualisation impossible en mode local</div>";
+						view.innerHTML = '<div class="text-center">Visualisation impossible en mode local</div>';
 					}
 				}
 		
 				// Envoi en POST car le texte peut être très long
-				this.viewXhr.open("POST", "parse-bbcode.php", true);
+				this.viewXhr.open("POST", this.viewPath, true);
 				this.viewXhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // Car requête POST
 				this.viewXhr.send("string=" + encodeURIComponent(text)); // Ne pas oublier d'encoder
 			}
